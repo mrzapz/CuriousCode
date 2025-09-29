@@ -89,7 +89,7 @@
 
   <script>
     const correctPIN = "0718"; // Change to your PIN
-    const imageURL = "taeminthreat.png"; // Change to your image
+    const imageURL = "taeminthreat.jpg"; // Change to your image
     let attempts = 0;
 
     const pinInput = document.getElementById("pinInput");
@@ -104,7 +104,7 @@
         message.textContent = "fake fan alert took too long! Redirecting...";
         setTimeout(() => {
           window.location.href = imageURL;
-        }, 1000);
+        }, 3000);
       } else if (userPIN === "0325") {
         message.style.color = "#ffcc00";
         message.textContent = "that would be too easy bro";
