@@ -98,83 +98,66 @@
 
     function checkPIN() {
       const userPIN = pinInput.value.trim();
+      attempts++;
 
+      // Correct PIN
       if (userPIN === correctPIN) {
         message.style.color = "#4ecca3";
         message.textContent = "fake fan alert took too long! Redirecting...";
         setTimeout(() => {
           window.location.href = imageURL;
         }, 3000);
-      } else if (userPIN === "0325") {
-        message.style.color = "#ffcc00";
-        message.textContent = "that would be too easy bro";
-        pinInput.value = "";
-        pinInput.focus();
-        } else if (userPIN === "0000") {
-        message.style.color = "#ffcc00";
-        message.textContent = "had to try it";
-        pinInput.value = "";
-        pinInput.focus();
-         } else if (userPIN === "6969") {
-        message.style.color = "#ffcc00";
-        message.textContent = "real funny bro";
-        pinInput.value = "";
-        pinInput.focus();
-         } else if (userPIN === "0420") {
-        message.style.color = "#ffcc00";
-        message.textContent = "not her but she's the coolest!";
-        pinInput.value = "";
-        pinInput.focus();
-        } else if (userPIN === "0506") {
-        message.style.color = "#ffcc00";
-        message.textContent = "he's awesome but not him!";
-        pinInput.value = "";
-        pinInput.focus();
-      } else if (userPIN === "0428") {
-        message.style.color = "#ffcc00";
-        message.textContent = "that would be even easier smh";
-        pinInput.value = "";
-        pinInput.focus();
-      } else {
-        attempts++;
-        message.style.color = "#ff6b6b";
-
-        // Check largest thresholds first
-        if (attempts >= 22) {
-          message.textContent = "nah thats it  _ A _ M _ N";
-        } else if (attempts >= 20) {
-          message.textContent = "you stink  _ A _ M _ N";
-        } else if (attempts >= 18) {
-           message.textContent = "_ A _ M _ _";
-        } else if (attempts >= 16) {
-           message.textContent = "give me an M!";
-        } else if (attempts >= 14) {
-           message.textContent = "_ A _ _ _ _";
-        } else if (attempts >= 12) {
-          message.textContent = "lets play hangman can we get an A!";
-        } else if (attempts >= 10) {
-          message.textContent = "music music music!";
-        } else if (attempts >= 5) {
-          message.textContent = "someone you are very familiar with...";
-        } else if (attempts >= 2) {
-          message.textContent = "nah, the hint is someone's birthday!";
-        } else {
-          message.textContent = "nope >:) Keep trying!";
-        }
-
-        pinInput.value = "";
-        pinInput.focus();
+        return;
       }
+
+      // Generic incorrect messages
+      message.style.color = "#ff6b6b";
+      if (attempts >= 18) {
+        message.textContent = "nah thats it  _ A _ M _ N";
+      } else if (attempts >= 16) {
+        message.textContent = "you stink  _ A _ M _ N";
+      } else if (attempts >= 14) {
+        message.textContent = "_ A _ M _ _";
+      } else if (attempts >= 12) {
+        message.textContent = "give me an M!";
+      } else if (attempts >= 10) {
+        message.textContent = "_ A _ _ _ _";
+      } else if (attempts >= 8) {
+        message.textContent = "lets play hangman can we get an A!";
+      } else if (attempts >= 6) {
+        message.textContent = "music music music!";
+      } else if (attempts >= 2) {
+        message.textContent = "someone you are very familiar with...";
+      } else {
+        message.textContent = "nope >:) Keep trying!";
+      }
+
+      // Special codes appended under the incorrect message
+      const specials = {
+        "0325": "that would be too easy bro",
+        "0428": "that would be even easier smh",
+        "0000": "had to try it",
+        "6969": "real funny bro",
+        "0420": "not her but she's the coolest!",
+        "0506": "he's awesome but not him!"
+      };
+
+      if (specials[userPIN]) {
+        message.style.color = "#ffcc00";
+        message.innerHTML += `<br>${specials[userPIN]}`;
+      }
+
+      pinInput.value = "";
+      pinInput.focus();
     }
 
-    // Event listeners
     submitBtn.addEventListener("click", checkPIN);
     pinInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") checkPIN();
     });
 
-    // Auto-focus on page load
     pinInput.focus();
   </script>
 </body>
 </html>
+
