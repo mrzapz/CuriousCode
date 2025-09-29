@@ -1,57 +1,151 @@
-<script>
-let attempts = 0;
-
-function checkPIN() {
-  const pinInput = document.getElementById("pinInput");
-  const message = document.getElementById("message");
-  const userPIN = pinInput.value.trim();
-
-  if (userPIN === "0718") {
-    message.style.color = "#4ecca3";
-    message.textContent = "fake fan alert took too long! Redirecting...";
-    setTimeout(() => {
-      window.location.href = "taeminthreat.png";
-    }, 1000);
-  } else if (userPIN === "0325") {
-    message.style.color = "#ffcc00";
-    message.textContent = "that would be too easy bro";
-    pinInput.value = "";
-    pinInput.focus();
-  } else if (userPIN === "0428") {
-    message.style.color = "#ffcc00";
-    message.textContent = "that would be even easier smh";
-    pinInput.value = "";
-    pinInput.focus();
-  } else {
-    attempts++;
-    message.style.color = "#ff6b6b";
-
-    // Always check the largest attempt thresholds first
-    if (attempts >= 30) {
-      message.textContent = "Music";
-    } else if (attempts >= 20) {
-      message.textContent = "Starts with a T";
-    } else if (attempts >= 10) {
-      message.textContent = "Someone you are very familiar with...";
-    } else if (attempts >= 2) {
-      message.textContent = "Nah, the hint is someone's birthday!";
-    } else {
-      message.textContent = "Nope >:) Keep trying!";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PIN Access</title>
+  <style>
+    /* Night background */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
     }
 
-    // Wipe and focus input
-    pinInput.value = "";
+    /* Glass effect card */
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      width: 320px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #f0f0f0;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 18px;
+      text-align: center;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      letter-spacing: 5px;
+    }
+
+    button {
+      padding: 8px 16px; /* smaller */
+      font-size: 14px;   /* smaller */
+      border: none;
+      border-radius: 10px;
+      background: #4ecca3;
+      color: #0f0f1a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #3ba88a;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter 4-Digit PIN</h2>
+    <div class="input-group">
+      <input type="password" id="pinInput" maxlength="4" placeholder="">
+      <button id="submitBtn">Submit</button>
+    </div>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const correctPIN = "0718"; // Change to your PIN
+    const imageURL = "taeminthreat.png"; // Change to your image
+    let attempts = 0;
+
+    const pinInput = document.getElementById("pinInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+
+    function checkPIN() {
+      const userPIN = pinInput.value.trim();
+
+      if (userPIN === correctPIN) {
+        message.style.color = "#4ecca3";
+        message.textContent = "fake fan alert took too long! Redirecting...";
+        setTimeout(() => {
+          window.location.href = imageURL;
+        }, 1000);
+      } else if (userPIN === "0325") {
+        message.style.color = "#ffcc00";
+        message.textContent = "that would be too easy bro";
+        pinInput.value = "";
+        pinInput.focus();
+      } else if (userPIN === "0428") {
+        message.style.color = "#ffcc00";
+        message.textContent = "that would be even easier smh";
+        pinInput.value = "";
+        pinInput.focus();
+      } else {
+        attempts++;
+        message.style.color = "#ff6b6b";
+
+        // Check largest thresholds first
+        if (attempts >= 30) {
+          message.textContent = "Music";
+        } else if (attempts >= 20) {
+          message.textContent = "Starts with a T";
+        } else if (attempts >= 10) {
+          message.textContent = "Someone you are very familiar with...";
+        } else if (attempts >= 2) {
+          message.textContent = "Nah, the hint is someone's birthday!";
+        } else {
+          message.textContent = "Nope >:) Keep trying!";
+        }
+
+        pinInput.value = "";
+        pinInput.focus();
+      }
+    }
+
+    // Event listeners
+    submitBtn.addEventListener("click", checkPIN);
+    pinInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") checkPIN();
+    });
+
+    // Auto-focus on page load
     pinInput.focus();
-  }
-}
-
-// Trigger checkPIN on Enter key
-document.getElementById("pinInput").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") checkPIN();
-});
-document.getElementById("submitBtn").addEventListener("click", checkPIN);
-
-// Auto-focus on page load
-document.getElementById("pinInput").focus();
-</script>
+  </script>
+</body>
+</html>
 
