@@ -118,22 +118,30 @@
       } else if (userPIN === "0325") {
         message.style.color = "#ffcc00";
         message.textContent = "that would be too easy bro";
-        pinInput.value = "";   // wipe field
+        pinInput.value = "";
         pinInput.focus();
       } else if (userPIN === "0428") {
         message.style.color = "#ffcc00";
         message.textContent = "that would be even easier smh";
-        pinInput.value = "";   // wipe field
+        pinInput.value = "";
         pinInput.focus();
       } else {
         attempts++;
         message.style.color = "#ff6b6b";
-        if (attempts >= 2) {
+
+        if (attempts >= 30) {
+          message.textContent = "Can we get a T";
+        } else if (attempts >= 20) {
+          message.textContent = "music music music";
+        } else if (attempts >= 10) {
+          message.textContent = "Someone you are very familiar with";
+        } else if (attempts >= 2) {
           message.textContent = "Nah, the hint is someone's birthday!";
         } else {
           message.textContent = "Nope >:) Keep trying!";
         }
-        pinInput.value = "";   // wipe field
+
+        pinInput.value = "";
         pinInput.focus();
       }
     }
