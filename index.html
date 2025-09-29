@@ -120,16 +120,26 @@
         message.style.color = "#ff6b6b";
 
         // Check largest thresholds first
-        if (attempts >= 30) {
-          message.textContent = "Music";
+        if (attempts >= 40) {
+          message.textContent = "no more hints!";
+        } else if (attempts >= 35) {
+          message.textContent = "honestly that's already too much you stink";
+        } else if (attempts >= 30) {
+           message.textContent = "_ A _ M _ _";
+        } else if (attempts >= 25) {
+           message.textContent = "give me an M!";
         } else if (attempts >= 20) {
-          message.textContent = "Starts with a T";
+           message.textContent = "_ A _ _ _ _";
+        } else if (attempts >= 15) {
+          message.textContent = "lets play hangman can we get an A!";
         } else if (attempts >= 10) {
-          message.textContent = "Someone you are very familiar with...";
+          message.textContent = "music music music!";
+        } else if (attempts >= 5) {
+          message.textContent = "someone you are very familiar with...";
         } else if (attempts >= 2) {
-          message.textContent = "Nah, the hint is someone's birthday!";
+          message.textContent = "nah, the hint is someone's birthday!";
         } else {
-          message.textContent = "Nope >:) Keep trying!";
+          message.textContent = "nope >:) Keep trying!";
         }
 
         pinInput.value = "";
