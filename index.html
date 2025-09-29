@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PIN Access</title>
+  <style>
+    /* Night background */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+
+    /* Glass effect card */
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      width: 320px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #f0f0f0;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 18px;
+      text-align: center;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      letter-spacing: 5px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #4ecca3;
+      color: #0f0f1a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #3ba88a;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter 4-Digit PIN</h2>
+    <input type="password" id="pinInput" maxlength="4" placeholder="****">
+    <button onclick="checkPIN()">Submit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const correctPIN = "0718"; // Change to your PIN
+    const imageURL = "taeminthreat.png"; // Change to your image
+
+    function checkPIN() {
+      const userPIN = document.getElementById("pinInput").value;
+      const message = document.getElementById("message");
+
+      if (userPIN === correctPIN) {
+        message.style.color = "#4ecca3";
+        message.textContent = "Access granted! Redirecting...";
+        setTimeout(() => {
+          window.location.href = imageURL;
+        }, 1000);
+      } else {
+        message.style.color = "#ff6b6b";
+        message.textContent = "Incorrect PIN. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
