@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>PIN Access</title>
   <style>
     /* Night background */
@@ -51,12 +51,14 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
-      letter-spacing: 5px;
+      letter-spacing: 8px;
+      box-sizing: border-box;
     }
 
+    /* make button match the input width but smaller visually */
     button {
-      padding: 8px 16px; /* smaller */
-      font-size: 14px;   /* smaller */
+      padding: 8px 16px;
+      font-size: 14px;
       border: none;
       border-radius: 10px;
       background: #4ecca3;
@@ -64,6 +66,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      width: 140px; /* fixed smaller width */
     }
 
     button:hover {
@@ -81,8 +84,19 @@
   <div class="container">
     <h2>Enter 4-Digit PIN</h2>
     <div class="input-group">
-      <input type="password" id="pinInput" maxlength="4" placeholder="">
-      <button onclick="checkPIN()">Submit</button>
+      <!-- autocomplete off to reduce autofill that can show bullets before typing -->
+      <input
+        type="password"
+        id="pinInput"
+        maxlength="4"
+        inputmode="numeric"
+        pattern="\d{4}"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        placeholder=""
+      />
+      <button id="submitBtn" type="button">Submit</button>
     </div>
     <p id="message"></p>
   </div>
@@ -92,32 +106,32 @@
     const imageURL = "taeminthreat.png"; // Change to your image
     let attempts = 0;
 
+    const pinInput = document.getElementById("pinInput");
+    const message = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // allow pressing Enter to submit
+    pinInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") checkPIN();
+    });
+
+    submitBtn.addEventListener("click", checkPIN);
+
+    function clearAndFocus() {
+      pinInput.value = "";
+      // small timeout ensures the value clears visually before focus (helps on some mobile browsers)
+      setTimeout(() => pinInput.focus(), 10);
+    }
+
     function checkPIN() {
-      const userPIN = document.getElementById("pinInput").value;
-      const message = document.getElementById("message");
+      const userPIN = pinInput.value.trim();
 
       if (userPIN === correctPIN) {
         message.style.color = "#4ecca3";
         message.textContent = "fake fan alert took too long! Redirecting...";
+        // optionally clear before redirect
+        pinInput.value = "";
         setTimeout(() => {
           window.location.href = imageURL;
         }, 1000);
-      } else if (userPIN === "0325") {
-        message.style.color = "#ffcc00";
-        message.textContent = "that would be too easy bro";
-      } else if (userPIN === "0428") {
-        message.style.color = "#ffcc00";
-        message.textContent = "that would be even easier smh";
-      } else {
-        attempts++;
-        message.style.color = "#ff6b6b";
-        if (attempts >= 2) {
-          message.textContent = "Nah, the hint is someone's birthday";
-        } else {
-          message.textContent = "Nope >:) Keep trying!";
-        }
-      }
-    }
-  </script>
-</body>
-</html>
+      } else if (userPI
