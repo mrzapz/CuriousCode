@@ -34,6 +34,13 @@
       color: #f0f0f0;
     }
 
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
     input {
       padding: 12px;
       font-size: 18px;
@@ -41,7 +48,6 @@
       border: none;
       outline: none;
       border-radius: 10px;
-      margin-bottom: 20px;
       width: 100%;
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
@@ -58,7 +64,6 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      width: auto;       /* no full stretch */
     }
 
     button:hover {
@@ -75,9 +80,10 @@
 <body>
   <div class="container">
     <h2>Enter 4-Digit PIN</h2>
-    <input type="password" id="pinInput" maxlength="4" placeholder="****">
-    <br>
-    <button onclick="checkPIN()">Submit</button>
+    <div class="input-group">
+      <input type="password" id="pinInput" maxlength="4" placeholder="">
+      <button onclick="checkPIN()">Submit</button>
+    </div>
     <p id="message"></p>
   </div>
 
@@ -92,7 +98,7 @@
 
       if (userPIN === correctPIN) {
         message.style.color = "#4ecca3";
-        message.textContent = "fake fan alert you took too long! Redirecting...";
+        message.textContent = "fake fan alert took too long! Redirecting...";
         setTimeout(() => {
           window.location.href = imageURL;
         }, 1000);
@@ -101,14 +107,14 @@
         message.textContent = "that would be too easy bro";
       } else if (userPIN === "0428") {
         message.style.color = "#ffcc00";
-        message.textContent = "thats even easier smh";
+        message.textContent = "that would be even easier smh";
       } else {
         attempts++;
         message.style.color = "#ff6b6b";
-        if (attempts >= 3) {
-          message.textContent = "Nah. Hint: someone's birthday!";
+        if (attempts >= 2) {
+          message.textContent = "Nah, the hint is someone's birthday";
         } else {
-          message.textContent = "Nope. Try again >:)";
+          message.textContent = "Nope >:) Keep trying!";
         }
       }
     }
