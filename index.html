@@ -49,8 +49,69 @@
     }
 
     button {
-      padding: 12px 20px;
-      font-size: 16px;
+      padding: 8px 16px; /* smaller */
+      font-size: 14px;   /* smaller */
       border: none;
       border-radius: 10px;
-      background
+      background: #4ecca3;
+      color: #0f0f1a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: auto;       /* no full stretch */
+    }
+
+    button:hover {
+      background: #3ba88a;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter 4-Digit PIN</h2>
+    <input type="password" id="pinInput" maxlength="4" placeholder="****">
+    <br>
+    <button onclick="checkPIN()">Submit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const correctPIN = "0718"; // Change to your PIN
+    const imageURL = "taeminthreat.png"; // Change to your image
+    let attempts = 0;
+
+    function checkPIN() {
+      const userPIN = document.getElementById("pinInput").value;
+      const message = document.getElementById("message");
+
+      if (userPIN === correctPIN) {
+        message.style.color = "#4ecca3";
+        message.textContent = "fake fan alert you took too long! Redirecting...";
+        setTimeout(() => {
+          window.location.href = imageURL;
+        }, 1000);
+      } else if (userPIN === "0325") {
+        message.style.color = "#ffcc00";
+        message.textContent = "that would be too easy bro";
+      } else if (userPIN === "0428") {
+        message.style.color = "#ffcc00";
+        message.textContent = "thats even easier smh";
+      } else {
+        attempts++;
+        message.style.color = "#ff6b6b";
+        if (attempts >= 3) {
+          message.textContent = "Wrong bitch! Hint: someone's birthday.";
+        } else {
+          message.textContent = "Nope. Try again >:)";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
