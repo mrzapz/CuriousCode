@@ -82,7 +82,7 @@
     <h2>Enter 4-Digit PIN</h2>
     <div class="input-group">
       <input type="password" id="pinInput" maxlength="4" placeholder="">
-      <button onclick="checkPIN()">Submit</button>
+      <button id="submitBtn">Submit</button>
     </div>
     <p id="message"></p>
   </div>
@@ -92,10 +92,22 @@
     const imageURL = "taeminthreat.png"; // Change to your image
     let attempts = 0;
 
+    const pinInput = document.getElementById("pinInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+
+    // Listen for button click
+    submitBtn.addEventListener("click", checkPIN);
+
+    // Listen for Enter key
+    pinInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        checkPIN();
+      }
+    });
+
     function checkPIN() {
-      const pinInput = document.getElementById("pinInput");
       const userPIN = pinInput.value.trim();
-      const message = document.getElementById("message");
 
       if (userPIN === correctPIN) {
         message.style.color = "#4ecca3";
@@ -125,6 +137,9 @@
         pinInput.focus();
       }
     }
+
+    // Auto-focus on page load
+    pinInput.focus();
   </script>
 </body>
 </html>
